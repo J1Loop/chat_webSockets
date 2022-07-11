@@ -1,0 +1,66 @@
+extends layout
+
+block content
+  h1 CHAT
+  hr
+  h2 Usuarios conectados: <span id="userCount"></span>
+
+  div
+    div.chatbox
+      ul#mensajes
+        each mensaje in chatlog
+          li #{mensaje.nombre}: #{mensaje.mensaje}
+
+    hr
+
+    div.inputBox
+      div.user
+        label(for="inputNombre") Nombre:
+        input#inputNombre(type="text" placeholder="Introduce un nombre") 
+        
+      div.msg
+        label(for="inputMensaje") Mensaje:
+        input#inputMensaje(type="text" placeholder="Introduce un mensaje")
+
+      div.send
+        button#enviar Enviar
+
+  script.
+    const socket = io();
+
+    //- Envío de prueba
+    //- socket.emit('evento_test', { nombre: "Jorge Test 123" });
+
+    //- Cuando pulsemos el botón hacer console.log de un objeto con claves nombre y mensaje y valores, los de los campos de texto
+
+    const chatbox = document.getElementById('mensajes');
+    const userCount = document.getElementById('userCount');
+
+    const inputNombre = document.getElementById('inputNombre');
+    const inputMensaje = document.getElementById('inputMensaje');
+    
+
+    const btnEnviar = document.getElementById('enviar');
+    btnEnviar.addEventListener('click', () => {
+
+      const obj = {
+        nombre: inputNombre.value,
+        mensaje: inputMensaje.value
+      };
+
+      //- console.log(obj);
+      socket.emit('mensaje_chat', obj);
+    });
+
+    socket.on('mensaje_chat', (data) => {
+      console.log(data);  // nombre, mensaje
+      // Agregar dentro de la lista un nuevo LI con los datos recibidos dentro del objeto data
+      const li = document.createElement('li');
+      li.innerHTML = `${data.nombre}: <span>${data.mensaje}</span>`;
+      chatbox.appendChild(li);
+    });
+
+    socket.on('usuarios_conectados', (data) => {
+      //- console.log(data);
+      userCount.innerText = data;
+    });

@@ -1,0 +1,78 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box
+}
+ 
+body {
+  padding: 40px 200px;
+  font: 16px monospace;
+}
+
+a {
+  color: #00B7FF;
+}
+
+h1 {
+  text-align: center;
+  font-size: 40px;
+}
+
+hr {
+  margin: 30px auto;
+  width: 80%;
+}
+
+input {
+  padding: 5px;
+}
+
+.chatbox {
+  display: flex;
+  flex-wrap: wrap;
+  border: 2px dashed #777;
+  justify-content: center;
+  background-color: rgb(254, 232, 190);
+  width: 100%;
+  height: 70vh;
+}
+
+#mensajes {
+  list-style: none;
+  width: 90%;
+  margin-top: 30px;
+}
+
+#mensajes li {
+  margin-top: 10px;
+  padding: 3px;
+}
+
+#mensajes li:hover {
+  background-color: rgba(127, 255, 212, 0.488);
+}
+
+.inputBox {
+  display: flex;
+  margin-top: 20px;
+  width: 100%;
+  /* height: auto; */
+  justify-content: space-between;
+}
+
+.msg {
+  width: 65%;
+}
+
+.msg input {
+  width: 85%;
+}
+
+.send {
+  width: 160px;
+}
+
+.send button {
+  width: 100%;
+  padding: 10px
+}
